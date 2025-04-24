@@ -8,5 +8,25 @@
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.10"
-  }
+  },
+  "name": "block37_careersimulation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "server":"nodemon ./server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarcgVa/Block37_CareerSimulation.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/MarcgVa/Block37_CareerSimulation/issues"
+  },
+  "homepage": "https://github.com/MarcgVa/Block37_CareerSimulation#readme"
 }
