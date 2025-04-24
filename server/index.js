@@ -11,8 +11,10 @@ app.listen(PORT, () => {
 });
 
 const authRoutes = require("../auth/authRoutes");
-app.use("/api/auth", authRoutes);
+const commentRoutes = require("../Comments/commentRoutes");
 
+app.use("/api/auth", authRoutes);
+app.use('/api', commentRoutes);
 
 
 app.get('/', async (req, res) => {
