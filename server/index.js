@@ -11,7 +11,7 @@ app.listen(PORT, () => {
 });
 
 const authRoutes = require("../auth/authRoutes");
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 
 
