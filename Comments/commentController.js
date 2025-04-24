@@ -32,8 +32,29 @@ const getMyComments = async (req, res, next) => {
   res.send(comments);
 };
 const updateComment = async (req, res, next) => {
-  
+   const token = req.headers?.authorization.split(" ")[1];
+   const id = jwt.verify(token, process.env.JWT_SECRET);
+
+  if (req.params.userId === id) {
+    const comment = await prisma.comment.update({
+      where: {
+        id: req.params.commentId,
+      },
+      data: {
+        title: req.body.title,
+      }
+    });
+
+    if (comment) {
+      res.send(comment);
+    } else {
+      res.send('Unable to update comment');
+    }
+  } else { 
+    res.send('Not Authorized');
+  }
 };
+
 const deleteComment = async (req, res, next) => {
   
 };

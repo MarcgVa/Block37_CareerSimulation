@@ -4,7 +4,7 @@ const {
   getMyComments,
   updateComment,
   deleteComment,
-  deleteReview
+  deleteReview,
 } = require("./commentController");
 
 function middleware(req, res, next) {
