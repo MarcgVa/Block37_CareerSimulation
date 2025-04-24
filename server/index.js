@@ -10,5 +10,12 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
 
+const authRoutes = require("../auth/authRoutes");
+app.use("/auth", authRoutes);
 
+
+
+app.get('/', async (req, res) => {
+  res.send("Is working")
+});
 module.exports = app;

@@ -1,48 +1,22 @@
-require("dotenv").config();
+require('dotenv').config();
 const router = require("express").Router();
-const { prisma, bcrypt, jwt } = require("../common/common");
+const { jwt } = require('../common/common');
+const { login, register, getUser } = require('./authController');
 
 
-router.post("/register", async (req, res, next) => {
-  try {
-    const { email, password } = req.body;
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    const newUser = await prisma.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-      },
-    });
-
-    if (newUser) {
-      console.log(newUser);
-      const token = jwt.sign(newUser.id, process.env.JWT_SECRET);
-      res.json({ newUser, token });
-    } else {
-      res.send("Something didn't work");
-    }
-  } catch (error) {
-    next(error);
+function middleware(req, res, next) {
+  const token = req.headers?.authorization?.split(' ')[1]
+  if (token) {
+    const { id } = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = id;
+    next();
+  } else { 
+    res.send("Please log in again");
   }
-});
+}
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await prisma.user.findFirst({
-    where: {
-      email,
-    },
-  });
+router.post('/login', login);
+router.post('/register', register);
+router.get('/me', middleware, getUser);
 
-  const match = await bcrypt.compare(password, user?.password);
-
-  if (match) {
-    const token = jwt.sign(user.id, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    res.send({ user, token });
-  } else {
-    res.send("Try to logon again...");
-  }
-});
+module.exports = router;
