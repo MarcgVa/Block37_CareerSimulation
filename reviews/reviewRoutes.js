@@ -16,6 +16,19 @@ const isLoggedIn = async (req, res, next) => {
   }
 };
 
+// updates the average rating of an item
+const updateAvgRating = async (itemId) => {
+  const averageRating = await prisma.review.aggregate({
+    where: { itemId },
+    _avg: { rating: true },
+  });
+  
+  await prisma.item.update({
+    where: { id: itemId },
+    data: { avg_rating: averageRating._avg.rating },
+  });
+}
+
 // get all reviews of an item
 router.get("/items/:itemId/reviews", async (req, res, next) => {
   try {
@@ -83,15 +96,7 @@ router.post("/items/:itemId/reviews", isLoggedIn, async (req, res, next) => {
     });
 
     // update the average rating of the item
-    const averageRating = await prisma.review.aggregate({
-      where: { itemId },
-      _avg: { rating: true },
-    });
-
-    await prisma.item.update({
-      where: { id: itemId },
-      data: { avg_rating: averageRating._avg.rating },
-    });
+    updateAvgRating(itemId);
     res.status(201).send(response);
   } catch (error) {
     next(error);
@@ -132,18 +137,9 @@ router.put(
         where: { id },
         select: { itemId: true }
       })
-
       const itemId = item?.itemId;
-      
-      const averageRating = await prisma.review.aggregate({
-        where: { itemId },
-        _avg: { rating: true },
-      });
+      updateAvgRating(itemId);
 
-      await prisma.item.update({
-        where: { id: itemId },
-        data: { avg_rating: averageRating._avg.rating },
-      });
       res.status(201).send(response);
     } catch (error) {
       next(error);
@@ -181,15 +177,7 @@ router.delete(
       });
 
       // update the average rating of the item
-      const averageRating = await prisma.review.aggregate({
-        where: { itemId },
-        _avg: { rating: true },
-      });
-
-      await prisma.item.update({
-        where: { id: itemId },
-        data: { avg_rating: averageRating._avg.rating },
-      });
+      updateAvgRating(itemId);
 
       res.sendStatus(204);
     } catch (error) {
