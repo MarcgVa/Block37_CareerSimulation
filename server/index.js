@@ -12,18 +12,16 @@ app.listen(PORT, () => {
 
 const authRoutes = require("../routes/auth/authRoutes");
 const commentRoutes = require("../routes/comments/commentRoutes");
-
 const reviewRoutes = require("../reviews/reviewRoutes");
+const itemRoutes = require("../routes/items/itemRoutes");
 
-app.use('/api', reviewRoutes);
-
+app.use("/api", itemRoutes);
+app.use("/api", reviewRoutes);
 app.use("/api/auth", authRoutes);
-app.use('/api', commentRoutes);
+app.use("/api", commentRoutes);
 
-
-
-
-app.get('/', async (req, res) => {
-  res.send("Is working")
+app.get("/", async (req, res) => {
+  res.send("Is working");
 });
+
 module.exports = app;
