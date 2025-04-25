@@ -154,7 +154,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Volumes/External Drive/code/Coursework/unit4/block37_CareerSimulation/generated/prisma",
+      "value": "E:\\coursework\\Block37_CareerSimulation\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -163,16 +163,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Volumes/External Drive/code/Coursework/unit4/block37_CareerSimulation/prisma/schema.prisma",
+    "sourceFilePath": "E:\\coursework\\Block37_CareerSimulation\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -182,11 +182,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:root@localhost:5432/careerSim?schema=public"
+        "value": null
       }
     }
   },
@@ -230,8 +231,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "libquery_engine-darwin.dylib.node");
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin.dylib.node")
+path.join(__dirname, "query_engine-windows.dll.node");
+path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

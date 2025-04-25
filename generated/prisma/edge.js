@@ -153,7 +153,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Volumes/External Drive/code/Coursework/unit4/block37_CareerSimulation/generated/prisma",
+      "value": "E:\\coursework\\Block37_CareerSimulation\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -162,16 +162,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "darwin",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Volumes/External Drive/code/Coursework/unit4/block37_CareerSimulation/prisma/schema.prisma",
+    "sourceFilePath": "E:\\coursework\\Block37_CareerSimulation\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "../../prisma",
@@ -181,11 +181,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:root@localhost:5432/careerSim?schema=public"
+        "value": null
       }
     }
   },
