@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { prisma, bcrypt, jwt } = require("../common/common");
+const { prisma, bcrypt, jwt } = require("../../common/common");
 
 
 const register = async (req, res) => {

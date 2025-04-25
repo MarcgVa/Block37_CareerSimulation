@@ -10,8 +10,8 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
 
-const authRoutes = require("../auth/authRoutes");
-const commentRoutes = require("../Comments/commentRoutes");
+const authRoutes = require("../routes/auth/authRoutes");
+const commentRoutes = require("../routes/comments/commentRoutes");
 
 app.use("/api/auth", authRoutes);
 app.use('/api', commentRoutes);
