@@ -45,7 +45,7 @@ router.get("/items/:itemId/reviews/:reviewId", async (req, res, next) => {
     });
     res.status(200).send(response);
   } catch (error) {
-    res.status(404).send("that review does not exist")
+    res.status(404).send("that review does not exist");
   }
 });
 
@@ -81,6 +81,17 @@ router.post("/items/:itemId/reviews", isLoggedIn, async (req, res, next) => {
         itemId,
       },
     });
+
+    // update the average rating of the item
+    const averageRating = await prisma.review.aggregate({
+      where: { itemId },
+      _avg: { rating: true },
+    });
+
+    await prisma.item.update({
+      where: { id: itemId },
+      data: { avg_rating: averageRating._avg.rating },
+    });
     res.status(201).send(response);
   } catch (error) {
     next(error);
@@ -115,6 +126,24 @@ router.put(
           rating,
         },
       });
+
+      // update the average rating of the item
+      const item = await prisma.review.findFirst({
+        where: { id },
+        select: { itemId: true }
+      })
+
+      const itemId = item?.itemId;
+      
+      const averageRating = await prisma.review.aggregate({
+        where: { itemId },
+        _avg: { rating: true },
+      });
+
+      await prisma.item.update({
+        where: { id: itemId },
+        data: { avg_rating: averageRating._avg.rating },
+      });
       res.status(201).send(response);
     } catch (error) {
       next(error);
@@ -138,6 +167,12 @@ router.delete(
       const id = req.params.reviewId;
       const authorId = req.params.userId;
 
+      const item = await prisma.review.findFirst({
+        where: { id },
+        select: { itemId: true }
+      })
+      const itemId = item?.itemId;
+
       const response = await prisma.review.delete({
         where: {
           id,
@@ -145,9 +180,20 @@ router.delete(
         },
       });
 
+      // update the average rating of the item
+      const averageRating = await prisma.review.aggregate({
+        where: { itemId },
+        _avg: { rating: true },
+      });
+
+      await prisma.item.update({
+        where: { id: itemId },
+        data: { avg_rating: averageRating._avg.rating },
+      });
+
       res.sendStatus(204);
     } catch (error) {
-      res.status(404).send("that review does not exist")
+      res.status(404).send("that review does not exist");
     }
   }
 );
