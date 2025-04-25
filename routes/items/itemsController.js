@@ -14,7 +14,7 @@ const getItem = async (req, res) => {
   try {
     const item = await prisma.item.findUnique({
       where: {
-        id,
+        id: itemId
       },
     });
     res.json(item);
@@ -29,4 +29,4 @@ module.exports = {
   getAllItems,
   getItem,
   getItemReviews,
-};
+}; 

@@ -16,8 +16,11 @@ const commentRoutes = require("../routes/comments/commentRoutes");
 app.use("/api/auth", authRoutes);
 app.use('/api', commentRoutes);
 
+const itemRoutes = require("../routes/items/itemRoutes");
+app.use("/api/items", itemRoutes);
 
 app.get('/', async (req, res) => {
   res.send("Is working")
 });
+
 module.exports = app;
