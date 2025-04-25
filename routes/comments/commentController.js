@@ -1,4 +1,4 @@
-const { prisma, bcrypt, jwt } = require("../common/common");
+const { prisma, bcrypt, jwt } = require("../../common/common");
 
 const createComment = async (req, res, next) => {
  
