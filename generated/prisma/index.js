@@ -154,7 +154,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\coursework\\Block37_CareerSimulation\\generated\\prisma",
+      "value": "C:\\Users\\Alyssa\\Documents\\Coursework\\unit_4\\block37\\workshop\\Block37_CareerSimulation\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -168,7 +168,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\coursework\\Block37_CareerSimulation\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Alyssa\\Documents\\Coursework\\unit_4\\block37\\workshop\\Block37_CareerSimulation\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -182,12 +182,11 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "value": "postgresql://Alyssa:LemonC0de$@localhost:5432/b37_careersim?schema=public"
       }
     }
   },

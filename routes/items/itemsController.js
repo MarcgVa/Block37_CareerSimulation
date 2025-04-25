@@ -12,9 +12,10 @@ const getAllItems = async (req, res) => {
 const getItem = async (req, res) => {
   const { itemId } = req.params;
   try {
-    const item = await prisma.item.findUnique({
+    console.log("routes retrieved");
+    const item = await prisma.item.findFirst({
       where: {
-        id: itemId
+        id: itemId,
       },
     });
     res.json(item);
@@ -23,10 +24,22 @@ const getItem = async (req, res) => {
   }
 };
 
-const getItemReviews = async (req, res) => {};
+const getItemReviews = async (req, res) => {
+  const { itemId } = req.params;
+  try {
+    const reviews = await prisma.review.findMany({
+      where: {
+        itemId: { equals: itemId },
+      },
+    });
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).send("Error on server side");
+  }
+};
 
 module.exports = {
   getAllItems,
   getItem,
   getItemReviews,
-}; 
+};
