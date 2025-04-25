@@ -19,7 +19,7 @@ function middleware(req, res, next) {
 router.post("/items/:itemId/reviews/:reviewId/comments",middleware, createComment);
 router.get("/comments/me", middleware, getMyComments);
 router.put("/users/:userId/comments/:commentId", updateComment);
-router.delete('/users/:userId/comments/:commentId', deleteComment);
-router.delete('/users/:userId/reviews/:reviewId', deleteReview);
+router.delete('/users/:userId/comments/:commentId', middleware, deleteComment);
+router.delete('/users/:userId/reviews/:reviewId', middleware, deleteReview);
 
 module.exports = router;
