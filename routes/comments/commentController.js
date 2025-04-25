@@ -1,4 +1,4 @@
-const { prisma, bcrypt, jwt } = require("../common/common");
+const { prisma, bcrypt, jwt } = require("../../common/common");
 
 const createComment = async (req, res, next) => {
  
@@ -35,31 +35,56 @@ const updateComment = async (req, res, next) => {
    const token = req.headers?.authorization.split(" ")[1];
    const id = jwt.verify(token, process.env.JWT_SECRET);
 
-  if (req.params.userId === id) {
-    const comment = await prisma.comment.update({
-      where: {
-        id: req.params.commentId,
-      },
-      data: {
-        title: req.body.title,
-      }
-    });
-
-    if (comment) {
-      res.send(comment);
-    } else {
-      res.send('Unable to update comment');
-    }
-  } else { 
-    res.send('Not Authorized');
+  if (req.params.userId !== id) {
+   res.send('Not Authorized to modify this comment.');
   }
+
+  const comment = await prisma.comment.update({
+    where: {
+      id: req.params.commentId,
+    },
+    data: {
+      title: req.body.title,
+    }
+  });
+
+  if (comment) {
+    res.send(comment);
+  } else {
+    res.send('Unable to update comment');
+  }
+
 };
 
 const deleteComment = async (req, res, next) => {
-  
+  const token = req.headers?.authorization.split(" ")[1];
+  const id = jwt.verify(token, process.env.JWT_SECRET);
+  if (req.params.userId !== id) {
+    res.send('Not Authorized to delete this comment.');
+    next()
+  }
+  const response = await prisma.comment.delete({
+    where: {
+      id: req.params.commentId,
+    },
+  });
+
+  res.sendStatus(204);
 };
 const deleteReview = async (req, res, next) => {
-  
+   const token = req.headers?.authorization.split(" ")[1];
+   const id = jwt.verify(token, process.env.JWT_SECRET);
+   if (req.params.userId !== id) {
+     res.send("Not Authorized to delete this comment.");
+     next();
+   }
+   const response = await prisma.review.delete({
+     where: {
+       id: req.params.reviewId,
+     },
+   });
+
+   res.sendStatus(204);
 };
 
 module.exports = {
