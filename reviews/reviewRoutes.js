@@ -127,9 +127,6 @@ router.delete(
   "/users/:userId/reviews/:reviewId",
   isLoggedIn,
   async (req, res, next) => {
-    console.log("DELETE request received!");
-    console.log("req.params.userId:", req.params.userId);
-    console.log("req.userId:", req.userId);
     // check if user has permissions to delete this review
     if (req.params.userId !== req.userId) {
       return res
@@ -150,7 +147,7 @@ router.delete(
 
       res.sendStatus(204);
     } catch (error) {
-      next(error);
+      res.status(404).send("that review does not exist")
     }
   }
 );
