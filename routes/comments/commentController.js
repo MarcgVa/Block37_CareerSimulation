@@ -1,4 +1,6 @@
+require('dotenv').config();
 const { prisma, bcrypt, jwt } = require("../../common/common");
+
 
 const createComment = async (req, res, next) => {
  
@@ -39,7 +41,7 @@ const updateComment = async (req, res, next) => {
    res.send('Not Authorized to modify this comment.');
   }
 
-  const comment = await prisma.comment.update({
+  const comment = await prisma.comment.update({see
     where: {
       id: req.params.commentId,
     },
